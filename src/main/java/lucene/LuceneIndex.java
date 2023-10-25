@@ -70,7 +70,7 @@ public class LuceneIndex {
 
             // Calcola il tempo trascorso
             long indexingTime = endTime - startTime;
-            System.out.println("Tempo di indicizzazione: " + indexingTime + " ms");
+            System.out.println("Tempo di indicizzazione: " + indexingTime + " ms\n");
 
 
         } catch(Exception e) {
@@ -85,8 +85,9 @@ public class LuceneIndex {
         for (int i = 0; i < hits.scoreDocs.length; i++) {
             ScoreDoc scoreDoc = hits.scoreDocs[i];
             Document doc = searcher.doc(scoreDoc.doc);
-            System.out.println("doc"+scoreDoc.doc + ":"+ doc.get("nome") + " (" + scoreDoc.score +")");
+            System.out.println("doc"+scoreDoc.doc + ": "+ doc.get("nome") + " (" + scoreDoc.score +")");
         }
+        System.out.print("\n");
     }
     
 
