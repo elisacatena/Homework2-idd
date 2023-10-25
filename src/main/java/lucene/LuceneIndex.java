@@ -5,13 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.CharArraySet;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.it.ItalianAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -38,7 +35,7 @@ public class LuceneIndex {
         Map<String, Analyzer> perFieldAnalyzers = new HashMap<>();
          
         perFieldAnalyzers.put("contenuto", new ItalianAnalyzer());
-        perFieldAnalyzers.put("nome", new WhitespaceAnalyzer());
+        perFieldAnalyzers.put("nome", new StandardAnalyzer());
 
         Analyzer analyzer = new PerFieldAnalyzerWrapper(defaultAnalyzer, perFieldAnalyzers);
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -51,7 +48,6 @@ public class LuceneIndex {
 
         try {
         	File dir = new File(path.toString());
-        	System.out.print(path.toString());
             File[] files = dir.listFiles();
             if (files != null) {
 	            for (File file : files) {
@@ -62,7 +58,6 @@ public class LuceneIndex {
 	                // ... and add it in the field "contenuto" 
 	                document.add(new TextField("contenuto", reader));
 	                writer.addDocument(document);
-	                System.out.print("doc aggiunto");
 	                reader.close();
 	            }
             }
