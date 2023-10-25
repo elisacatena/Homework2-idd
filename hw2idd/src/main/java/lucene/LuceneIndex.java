@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
+import org.apache.lucene.analysis.it.ItalianAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.codecs.Codec;
@@ -36,10 +37,7 @@ public class LuceneIndex {
         Analyzer defaultAnalyzer = new StandardAnalyzer();
         Map<String, Analyzer> perFieldAnalyzers = new HashMap<>();
         
-        CharArraySet stopWords = new CharArraySet(Arrays.asList("di", "a", "da", "dei", "il", "lo", "la", "un", "una", "uno"), true);
-        Analyzer a = new StandardAnalyzer(stopWords);
-        
-        perFieldAnalyzers.put("contenuto", a);
+        perFieldAnalyzers.put("contenuto", new ItalianAnalyzer());
         perFieldAnalyzers.put("nome", new WhitespaceAnalyzer());
 
         Analyzer analyzer = new PerFieldAnalyzerWrapper(defaultAnalyzer, perFieldAnalyzers);
