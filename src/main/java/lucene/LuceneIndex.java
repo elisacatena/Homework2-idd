@@ -46,6 +46,8 @@ public class LuceneIndex {
         IndexWriter writer = new IndexWriter(directory, config);
         writer.deleteAll(); 
 
+        // Registra il momento iniziale
+        long startTime = System.currentTimeMillis();
         try {
         	File dir = new File(path.toString());
             File[] files = dir.listFiles();
@@ -63,6 +65,13 @@ public class LuceneIndex {
             }
             writer.commit();
             writer.close();
+            // Registra il momento finale
+            long endTime = System.currentTimeMillis();
+
+            // Calcola il tempo trascorso
+            long indexingTime = endTime - startTime;
+            System.out.println("Tempo di indicizzazione: " + indexingTime + " ms");
+
 
         } catch(Exception e) {
             e.printStackTrace();
