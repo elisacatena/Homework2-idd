@@ -51,6 +51,7 @@ public class LuceneIndex {
 
         try {
         	File dir = new File(path.toString());
+        	System.out.print(path.toString());
             File[] files = dir.listFiles();
             if (files != null) {
 	            for (File file : files) {
@@ -61,6 +62,7 @@ public class LuceneIndex {
 	                // ... and add it in the field "contenuto" 
 	                document.add(new TextField("contenuto", reader));
 	                writer.addDocument(document);
+	                System.out.print("doc aggiunto");
 	                reader.close();
 	            }
             }

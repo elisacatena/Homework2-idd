@@ -21,7 +21,7 @@ public class MainClass {
         Scanner scanner = new Scanner(System.in);
         Directory directory = null;
 
-        Path path = Paths.get("/Users/elisacatena/Desktop/capitoli");
+        Path path = Paths.get("/Users/elisacatena/Desktop/documenti/capitoli");
         Path indexPath = Paths.get("/Users/elisacatena/Desktop/documenti/index");
         System.out.println(path.toString());
 
