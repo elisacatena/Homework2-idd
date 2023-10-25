@@ -21,10 +21,11 @@ public class MainClass {
         Directory directory = null;
 
         Path path = Paths.get("/Users/elisacatena/Desktop/capitoli");
+        Path indexPath = Paths.get("/Users/elisacatena/Desktop/documenti/index");
         System.out.println(path.toString());
 
         try {
-        	directory = FSDirectory.open(path);
+        	directory = FSDirectory.open(indexPath);
             LuceneIndex.createIndex(directory, path);
             IndexReader reader = DirectoryReader.open(directory);
             IndexSearcher searcher = new IndexSearcher(reader);
