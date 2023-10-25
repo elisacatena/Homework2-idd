@@ -87,7 +87,6 @@ public class LuceneIndex {
             Document doc = searcher.doc(scoreDoc.doc);
             System.out.println("doc"+scoreDoc.doc + ":"+ doc.get("nome") + " (" + scoreDoc.score +")");
         }
-        System.out.println("FINE RUN QUERY");
     }
     
 
