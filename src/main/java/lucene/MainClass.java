@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -34,18 +33,19 @@ public class MainClass {
             while (true) {
                 System.out.print("Inserisci una query oppure 'exit' per uscire: ");
                 String queryReader = scanner.nextLine();
-                String[] words = queryReader.split(":");
-
-                QueryParser queryParser = new QueryParser(words[0], new StandardAnalyzer());
+                String[] input = queryReader.split(":");
+                String field = input[0].trim();
+                QueryParser queryParser = new QueryParser(field, new StandardAnalyzer());
 
                 Query query;
-                if (words[0].equals("nome")) {
-                    query = queryParser.parse(words[1] + ".txt");
+                
+                if (field.equals("nome")) {
+                    query = queryParser.parse(input[1] + ".txt");
                     LuceneIndex.runQuery(searcher, query);
-                } else if (words[0].equals("contenuto")) {
-                    query = queryParser.parse(words[1]);
+                } else if (field.equals("contenuto")) {
+                    query = queryParser.parse(input[1]);
                     LuceneIndex.runQuery(searcher, query);
-                } else if (words[0].equals("exit")) {
+                } else if (field.equals("exit")) {
                     break;
                 } else {
                     System.out.println("Campo non valido");
