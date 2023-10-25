@@ -30,27 +30,32 @@ public class MainClass {
             IndexReader reader = DirectoryReader.open(directory);
             IndexSearcher searcher = new IndexSearcher(reader);
             
-            
-            System.out.print("Inserisci una query: ");
-            String queryReader = scanner.nextLine();
-            String[] words = queryReader.split(":");
-            
-            QueryParser queryParser = new QueryParser(words[0], new WhitespaceAnalyzer());  
-            
-            Query query;
-            if(words[0].equals("nome")) {
-            	 query = queryParser.parse(words[1]+".txt");
+            while(true) {
+            	 System.out.print("Inserisci una query oppure 'exit' per uscire: ");
+                 String queryReader = scanner.nextLine();
+                 String[] words = queryReader.split(":");
+                 
+                 QueryParser queryParser = new QueryParser(words[0], new StandardAnalyzer());  
+                 
+                 Query query;
+                 if(words[0].equals("nome")) {
+                 	 query = queryParser.parse(words[1]+".txt");
+                 }
+                 else if(words[0].equals("contenuto")) {
+                 	query = queryParser.parse(words[1]);
+                 }
+                 else if (words[0].equals("exit")) {
+                	 break;
+                 }
+                 else {
+                 	System.out.println("Campo non valido");
+                 }
+                 
+                 LuceneIndex.runQuery(searcher, query);
             }
-            else if(words[0].equals("contenuto")) {
-            	query = queryParser.parse(words[1]);
+            catch(Exception e) {
+                e.printStackTrace();
             }
-            else {
-            	System.out.println("Campo non valido");
-            	return;
-            }
-            
-            LuceneIndex.runQuery(searcher, query);
-
                 
             } finally {
                 directory.close();

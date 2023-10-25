@@ -36,7 +36,7 @@ public class LuceneIndex {
     	Codec codec = new SimpleTextCodec();
         Analyzer defaultAnalyzer = new StandardAnalyzer();
         Map<String, Analyzer> perFieldAnalyzers = new HashMap<>();
-        
+         
         perFieldAnalyzers.put("contenuto", new ItalianAnalyzer());
         perFieldAnalyzers.put("nome", new WhitespaceAnalyzer());
 
